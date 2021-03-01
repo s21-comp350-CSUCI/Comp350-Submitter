@@ -1,0 +1,46 @@
+<!doctype html>
+
+<html>
+
+  <body>
+
+    <button onclick="window.location.href='adminDashboard.html';" class="adminDashboard">Return to Dashboard</button>
+    <button onclick="window.location.href='eventCreation.html';" class="createEvent">Create Event</button>
+    
+    <h1>Event Modification</h1>
+
+
+    <!-- Modify for DB access -->
+    <form action="" method="POST">
+      <select name="selectEvent" id="openEvents" required>
+        <option  value="" selected disabled>Select an event...</option>
+        <option value="HW00">HW00</option>
+        <option value="HW01">HW01</option>
+        <option value="Programming Competition">Programming Competition</option>
+      </select>
+
+      <select name="chooseEdit" id="editOptions" required>
+        <option  value="" selected disabled>Select an edit option...</option>
+
+        <option value="Delete this event">Delete this event</option>
+        <option value="Event Name">Event Name</option>
+        <option value="Start Date">Start Date</option>
+        <option value="End Date">End Date</option>
+        <option value="Team Size">Team Size</option>
+        <option value="Assignment Name">Assignment Name</option>
+        <option value="Test Case(s)">Test case(s)</option>
+        <option value="Grade Case(s)">Grade case(s)</option>
+        <option value="Student Token ID">Token ID</option>
+<!--         <option value="Student First Name">First Name</option>
+        <option value="Student Last Name">Last Name</option> -->
+        <option value="Student Email">Email</option>
+
+        <option value="Programming Competition">Programming Competition</option>
+      </select>
+      <br><br>
+      <input type="submit" value="Submit Modifications">
+    </form>
+
+
+  </body>
+</html>

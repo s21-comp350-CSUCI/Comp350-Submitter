@@ -1,0 +1,78 @@
+<!doctype html>
+
+<html>
+  <style>
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+  </style>
+
+
+  <body>
+
+
+    <button onclick="window.location.href='logout.html';" class = "adminLogout">Logout</button>
+
+    <!-- header -->
+    <h1>Admin Dashboard</h1>
+
+    <!-- Table: Open Events -->
+    <table>
+      <tr>
+        <th>Open Events</th>
+      </tr>
+      <tr>
+        <td>HW00</td>
+      </tr>
+      <tr>
+        <td>HW01</td>
+      </tr>     
+      <tr>
+        <td>Programming Competition</td>
+      </tr>     
+    </table>
+
+
+    <!-- Table: Student Name and Student Email -->
+    <br>
+    <table>
+      <tr>
+        <th>Token ID</th>
+<!--         <th>Student First Name</th>
+        <th>Student Last Name</th> -->
+        <th>Student Email</th>
+
+      </tr>
+      <tr>
+        <td>TokenID00</td>
+<!--         <td>first</td>
+        <td>last</td> -->
+        <td>student00@csuci.edu</td>
+      </tr>
+
+<!--       <tr>
+        <td>fname lname</td>
+        <td>name0@csuci.edu</td>
+      </tr> -->
+    </table>  
+    <br>
+
+
+    <!-- Modify Event button -->
+    <button onclick="window.location.href='eventMod.html';" class="modEvent">Modify Open Event</button>
+
+    <!-- Modify event button -->
+    <button onclick="window.location.href='eventCreation.html';" class="newEvent">Register New Event</button>
+
+
+  </body>
+</html>
