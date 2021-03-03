@@ -1,0 +1,114 @@
+<!doctype html>
+
+<html>
+
+  <body>
+
+    <button onclick="window.location.href='adminDashboard.html';" class="adminDashboard">Return to Dashboard</button>
+    <button onclick="window.location.href='eventCreation.html';" class="createEvent">Create Event</button>
+    
+    <h1>Event Modification</h1>
+
+
+    <!-- Modify for DB access -->
+    <form action="" method="POST">
+      <select name="selectEvent" id="openEvents" required>
+        <option  value="" selected disabled>Select an event to modify...</option>
+        <option value="HW00">HW00</option>
+        <option value="HW01">HW01</option>
+        <option value="Programming Competition">Programming Competition</option>
+      </select>
+
+
+      <br><br>
+      
+      <table>
+
+
+       <tr>
+        <td>Event Name :</td>
+        <td><input type="text" name="eventname" required></td>
+       </tr>
+
+
+       <tr>
+        <td>Start Date :</td>
+        <td>
+            <label for="start date"></label>
+            <input type="date" id="start date" name="start date">
+        </td>
+       </tr>
+
+
+       <tr>
+        <td>End Date :</td>
+        <td>
+            <label for="end date"></label>
+            <input type="date" id="end date" name="end date">
+        </td>
+       </tr>
+
+
+       <tr>
+        <td>Team Size: </td>
+        <td>
+          <label for="Max"></label>
+          <select name="max" id="max">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="ALL">ALL</option>
+
+          </select>
+
+        </td>
+       </tr> 
+
+
+       <tr>
+        <td>Assignment Name:</td>
+        <td>
+         <input type="assignment" name="assignment" required>
+        </td>
+       </tr>
+
+
+       <tr>
+        <td>Test cases :</td>
+        <td>
+          <button class="button button2">Upload</button>
+        </td>
+      </tr>
+
+
+      <tr>
+        <td>Grade cases :</td>
+        <td>
+          <button class="button button2">Upload</button>
+        </td>
+      </tr>
+
+
+      <tr>
+        <td>List of student emails :</td>
+        <td>
+          <label for="emails"></label>
+          <input type="email" id="emails" name="emails" multiple>
+          <!-- <input type="submit"> -->
+        </td>
+      </tr>
+
+       <tr>
+        <td><input type="submit" value="Submit Modifications"></td>
+       </tr>
+
+
+      </table>
+
+    </form>
+
+
+  </body>
+</html>
