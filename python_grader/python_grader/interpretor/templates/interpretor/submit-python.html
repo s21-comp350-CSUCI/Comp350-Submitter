@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="student.css">
+    <title>File Submission</title>
+    <style>
+        button {
+  color: white;
+  background-color: #04177E;
+  cursor: pointer;
+}
+
+.nav {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  height: 64px;
+  width: 100%;
+  background: #04177E;
+  top: 0;
+  left: 0;
+  position: fixed;
+}
+
+.nav a {
+  color: white;
+  padding: 25px;
+  text-decoration: none;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+}
+
+#logo {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.5rem;
+  padding: 50px;
+}
+
+.token-container {
+  padding-top: 70px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.token {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.token-input {
+  height: 25px;
+  border-radius: 4px;
+  outline: none;
+}
+
+.validate-button {
+  height: 30px;
+  margin-left: 8px;
+  margin-right: 4px;
+  border-radius: 8px;
+  outline: none;
+}
+
+.add-button {
+  height: 30px;
+  border-radius: 16px;
+  outline: none;
+}
+
+.sub-button {
+  height: 30px;
+  margin-left: 8px;
+  margin-right: 4px;
+  border-radius: 16px;
+  outline: none;
+}
+
+.submission-container {
+  padding-top: 70px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.submission {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.submission h3 {
+   margin-right: 20px;
+}
+
+.submission-container button {
+  height: 35px;
+  border-radius: 16px;
+  outline: none;
+}
+
+.test-cases {
+  display: none;
+  padding-top: 70px;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav class="nav">
+        <a id="logo" href="">Submitter</a>
+        <a href="/login">Admin Login</a>
+        <a href="/submit-python">Student Submit</a>
+      </nav>
+    </header>
+    <div class="submission-container">
+      <h1>Student Submission</h1>
+      <h3>Tokens Validated, Submit file</h3>
+      <div class="submission">
+        <h3>Python File:</h3>
+        <button type="button" name="button">Browse</button>
+      </div>
+      <button type="button" name="button" onclick="showTestResults()">Submit</button>
+    </div>
+    <!-- html below this line is hidden  -->
+    <div class="test-cases">
+      <h1>Student Submission</h1>
+      <h3>Test Case 1</h3>
+      <var>x</var>
+      <h3>Test Case 2</h3>
+      <var>y</var>
+      <h3>Test Case 3</h3>
+      <var>z</var>
+    </div>
+    <script type="text/javascript" src="student-script.js"></script>
+  </body>
+</html>
