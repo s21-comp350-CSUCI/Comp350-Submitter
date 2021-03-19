@@ -1,0 +1,13 @@
+{
+  "submission": {
+    "event": "problem1a",
+    "admin": "m.soltys",
+    "tokens": [
+      "token1",
+      "token2",
+      "tokenN"
+    ],
+    "subID": "hash-> (token1:token2:tokenN:admin:event:time)",
+    "code": "All code from submission"
+  }
+}
