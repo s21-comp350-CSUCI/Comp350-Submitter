@@ -4,6 +4,7 @@ import boto3
 sqs_client = boto3.client('sqs')
 QueueUrl = "https://sqs.us-east-1.amazonaws.com/208939558331/submitter_sqs"
 bucket_name = 'comp350-submitter-bucket'
+s3_client = boto3.client('s3')
 
 def retrieveMessageFromQueue(sqsClient, queURL, bucketName):
     pass
@@ -24,9 +25,9 @@ def retrieveMessageFromQueue(sqsClient, queURL, bucketName):
 message = sqs_response['Messages'][0] #get message from sqs queue
 filename = message['filename'] #get filename from message
 bucket_name = 'comp350-submitter-bucket' #bucket name
-
-s3_client = boto3.client('s3')
-s3_response = s3_client.get_object(Bucket=bucket_name, Key=filename) #get object from bucket
+def retrieveObjectFromBucket():
+    s3_response = s3_client.get_object(Bucket=bucket_name, Key=filename)
+    return s3_response
 
 #use s3_response to process object?
 
