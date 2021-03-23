@@ -12,7 +12,10 @@ import sys
 # This function will return a message in
 # json format from the sqs queue
 def retrieveMessageFromQueue(sqsClient, queURL):
-    
+    # Visibility timeout starting at 150, since it is better to have
+    # to shorten it, then we have an error because too short. Once we 
+    # know the longest time it takes to process a job, we set the 
+    # timeout to just over that.
     sqs_response = sqs_client.receive_message(
         QueueUrl=QueueUrl,
         AttributeNames=[
@@ -22,7 +25,7 @@ def retrieveMessageFromQueue(sqsClient, queURL):
         MessageAttributeNames=[
             'All'
         ],
-        VisibilityTimeout=150,
+        VisibilityTimeout=150, 
         WaitTimeSeconds=0
     )
 
@@ -35,8 +38,8 @@ def retrieveObjectFromBucket(obj, s3bucket='comp350-submitter-bucket'):
     s3_response = s3_client.get_object(Bucket=s3bucket, Key=obj)
     return s3_response
 
-# This function deletes a message from the queue (upon completion
-# of task)
+# This function deletes a message from the queue (to be done 
+# upon completion of task, else message is visible on queue again)
 def deleteMessageFromQueue(sqsClient, queURL, message):
     #delete message
     receipt_handle = message['ReceiptHandle']
@@ -52,7 +55,7 @@ def createStudentToken(studentEmail, adminName, eventName):
     token = hashlib.md5(stringToken.encode()).hexdigest()
     return token
 
-# this function will generate a unique submission id
+# This function will generate a unique submission id
 # for the student tokens provided unque to the students,
 # the admin, event, and specific problem
 def createSubmissionID(tokenList, adminName, eventName, problemName):
