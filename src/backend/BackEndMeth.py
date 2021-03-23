@@ -1,6 +1,7 @@
 import json
 import boto3
-
+import hashlib
+import sys
 
 #sqs_client = boto3.client('sqs')
 #QueueUrl = "https://sqs.us-east-1.amazonaws.com/208939558331/submitter_sqs"
@@ -8,7 +9,8 @@ import boto3
 #s3_client = boto3.client('s3')
 
 
-
+# This function will return a message in
+# json format from the sqs queue
 def retrieveMessageFromQueue(sqsClient, queURL):
     
     sqs_response = sqs_client.receive_message(
@@ -27,14 +29,14 @@ def retrieveMessageFromQueue(sqsClient, queURL):
     message = sqs_response['Messages'][0] #get message from sqs queue
     return message
 
-
-def retrieveObjectFromBucket(s3bucket='comp350-submitter-bucket' , filename):
-    s3_response = s3_client.get_object(Bucket=s3bucket, Key=filename)
+# This function will return an object (json, py, etc)
+# from a named bucket or default 
+def retrieveObjectFromBucket(obj, s3bucket='comp350-submitter-bucket'):
+    s3_response = s3_client.get_object(Bucket=s3bucket, Key=obj)
     return s3_response
 
-
-
-
+# This function deletes a message from the queue (upon completion
+# of task)
 def deleteMessageFromQueue(sqsClient, queURL, message):
     #delete message
     receipt_handle = message['ReceiptHandle']
@@ -42,5 +44,21 @@ def deleteMessageFromQueue(sqsClient, queURL, message):
         QueueUrl=QueueUrl,
         ReceiptHandle=receipt_handle
     )
+
+# This function will create a unique 128-bit token 
+# for a student to use for submitting code to an event.
+def createStudentToken(studentEmail, adminName, eventName):
+    stringToken = "{}:{}:{}".format(studentEmail, adminName, eventName)
+    token = hashlib.md5(stringToken.encode()).hexdigest()
+    return token
+
+# this function will generate a unique submission id
+# for the student tokens provided unque to the students,
+# the admin, event, and specific problem
+def createSubmissionID(tokenList, adminName, eventName, problemName):
+    tokenList.sort()
+    stringToken = "{}:{}:{}:{}".format(*tokenList, adminName, eventName, problemName)
+    token = hashlib.md5(stringToken.encode()).hexdigest()
+    return token
 
 
