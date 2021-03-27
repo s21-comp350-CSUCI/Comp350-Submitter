@@ -32,9 +32,9 @@
       <form action="" method="POST">
         <select name="selectEvent" id="openEvents" required>
           <option  value="" selected disabled>Select an event to view details...</option>
-          <option value="HW00">HW00</option>
+          <!--<option value="HW00">HW00</option>
           <option value="HW01">HW01</option>
-          <option value="Programming Competition">Programming Competition</option>
+          <option value="Programming Competition">Programming Competition</option>-->
         </select>
         <button type="" method="POST">View</button>      
       </form>
@@ -46,60 +46,93 @@
     <p>[Display details after an event is selected.]</p>
     
     <table>
-      <tr>
+      <tr> <!-- Event Name -->
         <th>Event Name</th>
         <td>Selected Event</td>
       </tr>
-      <tr>
+
+      <tr> <!-- Event Description -->
+        <th>Event Description</th>
+        <td>Description</td>
+      </tr>
+
+      <tr> <!-- Start Date -->
         <th>Start Date</th>
         <td>01/01/3000</td>
       </tr>
-      <tr>
+
+      <tr> <!-- End Date -->
         <th>End Date</th>
         <td>01/02/3000</td>
       </tr>
-      <tr>
+
+      <tr> <!-- Team Size -->
         <th>Team Size</th>
         <td>3</td>
       </tr>
-      <tr>
+
+      <tr> <!-- Assignment Name -->
         <th>Assignment Name</th>
         <td>Topic00</td>
       </tr>
-      <tr>
+
+      <tr> <!-- Assignment Description -->
+        <th>Assignment Description</th>
+        <td>Assignment Desc</td>
+      </tr>
+
+      <tr> <!-- Test Cases -->
         <th>Test Case(s)</th>
         <td>[Files]</td>
       </tr>
-      <tr>
+
+      <tr> <!-- Grade Cases -->
         <th>Grade Case(s)</th>
         <td>[Files]</td>
       </tr>      
+      
+      <tr> <!-- Event Comments-->
+        <!-- <th>Event Comment(s)</th> -->
+        <!-- <td>Comment</td> -->
+      </tr>
 
-    </table>  
+    </table>  <!-- end of table 1-->
+    <br>
+    
     <br>
 
-    <br>
     <table>
-      <tr>
+      <tr> <!-- Token ID -->
         <th>Token ID</th>
         <th>Student Email</th>
 
       </tr>
-      <tr>
+
+      <tr> <!-- First Token (Temp. Placement) -->
         <td>TokenID00</td>
         <td>student00@csuci.edu</td>
       </tr>
 
-      <tr>
+      <tr> <!-- Second Token (Temp. Placement) -->
         <td>TokenID01</td>
         <td>student01@csuci.edu</td>
       </tr>
-
-    </table>  
+    </table> <!-- end of table 2 -->
     <br>
 
-
-
+    <table>
+      <tr>
+        <th>Event Comment(s):</th>
+        <td>  
+          <textarea id="eventComment" name="eventComment" rows="4" cols="50">
+            Insert Comment Here
+            </textarea>
+            <br><br>
+        </td>
+      </tr>
+      
+    </table>  <!-- end of table 3-->
+    <br>
 
   </body>
 </html>
