@@ -1,63 +1,79 @@
 import json
-import boto3
-import hashlib
-
-# the object (message) is a json file with all the info for a student and admin
-# i.e. submitted code and event object w/ all event parameters
-
-def processJSONMessage(message):
-	message_dict = json.loads(message)
-
-	# prints dictionary
-	# message_json = json.dumps(message_dict)
-	# print(message_json)
-
-	if "token" in message_dict:
-		processStudent(message_dict)
-	else:
-		processAdmin(message_dict)
+import os
+import BackEndMeth
 
 
+# the object is a json file with all the info for a student and admin
+# i.e. submission and event json w/ all event parameters
+
+# This function will process the json file and load it into a python dictionary
+# then it will call the appropriate function to process the submission/event
+def processJsonFile(json_file):
+    # converts json to python dictionary
+    message_dict = json.loads(json_file)
+
+    # if the "tokens" key exists in the dictionary then process student otherwise process admin
+    if "tokens" in message_dict:
+        processStudent(message_dict)
+    else:
+        processAdmin(message_dict)
+
+
+# This function processes the event that was loaded into a python dictionary
+# then it saves the event in the RDS & creates/sends tokens to all students via SNS
 def processAdmin(message_dict):
-    # process the events
-	events = message_dict.get("events")
-	for event in events:
-		# save events to RDS - how are we storing/organizing
+    # process the event (based off eventExample.json)
+    event = message_dict.get("event")
+    adminName = event.get("admin")
+    eventName = event.get("name")
+    parameters = event.get("parameters")
+    emails = message_dict.get("emails")
+
+    # save event to RDS
+    # function goes here
+
+    # create tokens for every student
+    for studentEmail in emails:
+        token = createStudentToken(studentEmail, adminName, eventName)
+        # send token to student via SNS
+    # function goes here
 
 
-
-	# create tokens
-	emails = message_dict.get("emails")
-	for email in emails:
-		token = hashlib.md5("stuff to be hashed here").hexdigest()
-		# send tokens to students via SNS
-
-
+# This function processes the submission that was loaded into a python dictionary
+# then it runs the test cases in a docker. If it is successful then it creates a
+# submission ID so it can be added to the grade test queue
 def processStudent(message_dict):
-	# process the files
-	files = message_dict.get("files")
+    # process the submission (based off subExample.json)
+    submission = message_dict.get("submission")
+    eventName = submission.get("event")
+    adminName = submission.get("admin")
+    tokenList = message_dict.get("tokens")
+    subID = message_dict.get("subID")
+    code = message_dict.get("code")
 
-	# run test cases (in docker container) if it fails report to frontend and abort
+    # run test cases (in docker container)
+    docker_cmd = "docker run -it --rm --name='my-hello-world' -v '$PWD':/usr/src/myapp -w /usr/src/myapp python:3 python --version"
+    docker = os.system(docker_cmd)
 
-	if docker is None:
-		# this may happen if files have major errors
-	else:
-		for file in files:
-			# run docker with test cases
-			# return results to frontend
-
-   
-	# at this point docker did not fail and will place the files in another queue
-	# this way students will be able to submit multiple times before the deadline
-	addToGradeCaseQueue(files)
-
-
-def addToGradeCaseQueue(files):
-	# retrieve student credentials and store grade in RDS
+    # if docker was successful then create submission ID & place the submission in another queue
+    # this way students will be able to submit multiple times before the deadline
+    if docker is 0:
+        print("successful")
+        token_submission_id = createSubmissionID(tokenList, adminName, eventName, problemName)
+        addToGradeCaseQueue(token_submission_id)
+    else:
+        # this may happen if file has major errors or file does not exists
+        # Example: syntax
+        print("unsuccessful")
 
 
+# This function will add the submission to the grade cse queue. If the student has
+# submitted before then it overwrites the old submission with the new submission
+def addToGradeCaseQueue(submission):
+    print(submission)
+
+
+# This function will run each submissions in the grade case queue and save the results
+# to the RDS for each student.
 def processGradeCaseQueue():
-	files = message_dict.get("files")
-	for file in files:
-		# run docker with grade cases
-		# once it is done with grade cases it return results to RDS 
+    print("process grade case queue")
