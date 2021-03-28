@@ -28,8 +28,23 @@
   padding: 50px;
 }
 
-h2 {
-  position: relative;
-  top: 70px;
-  left: 0px;
+.logout-container {
+  margin-top: 70px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+
+}
+
+button {
+  color: white;
+  background-color: #04177E;
+  cursor: pointer;
+  border-radius: 8px;
+  outline: none;
+  height: 30px;
+}
+
+button:hover {
+    background-color: green;
 }
