@@ -3,29 +3,31 @@
 <html>
 
 <!-- Browser tab title -->
+
+
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="event.css">
+    <link rel="stylesheet" href="eventMod.css">
     <title>Submitter - Event Modification</title> 
   </head>
 
 
   <body>
-
+<div class="container">
 <!-- Navigation Bar -->
-<header>
-  <nav class="nav">
-    <a id="logo" href="">Submitter</a>
-    <a href="eventCreation.html">Register an Event</a>
-    <a href="eventMod.html">Modify an Event</a>
-    <a href="student-token.html">Student Submit</a>        
-    <a href="logout.html">Logout</a>
-  </nav>
-</header>
+    <header>
+      <nav class="nav">
+        <a id="logo" href="">Submitter</a>
+        <a href="adminDashboard.html">Admin Dashboard</a>        
+        <a href="logout.html">Logout</a>
+      </nav>
+    </header>
 
 <!-- Page Title -->
   <b>
     <h1>Event Modification</h1>
+
+
 
     <!-- Select an event to modify... -->
     <form action="" method="POST">
@@ -44,16 +46,8 @@
         <!-- Event Name -->
        <tr>
         <td>Event Name :</td>
-        <td><input type="text" class="inputField" name="eventname" required></td>
+        <td><input type="text" placeholder="Event Name" name="eventname" required></td>
        </tr>
-
-       <!-- Event Disc-->
-       <tr>
-        <td>Event Description (optional): </td>
-        <td>
-         <textarea id="textBox" type="eventDisc" name="eventDisc"></textarea>
-       </td>
-      </tr>
 
        <!-- Start Date -->
        <tr>
@@ -77,8 +71,9 @@
        <tr>
         <td>Team Size: </td>
         <td>
-          <label for="Max"></label>
+        <div class="select">
           <select name="max" id="max" required>
+			<option>Select Size:</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -86,6 +81,7 @@
             <option value="5">5</option>
             <option value="ALL">ALL</option>
           </select>
+		</div>  
         </td>
        </tr> 
 
@@ -93,15 +89,7 @@
        <tr>
         <td>Assignment Name:</td>
         <td>
-         <input type="assignment" class="inputField" name="assignment" required>
-        </td>
-       </tr>
-
-      <!-- Assignment Description-->
-       <tr>
-        <td>Assignment Description (optional): </td>
-        <td>
-          <textarea id="textBox" type="assignmenDisc" name="assignmentDisc"></textarea>
+         <input type="assignment" placeholder="Assignment Name" name="assignment" required>
         </td>
        </tr>
 
@@ -126,7 +114,7 @@
         <td>List of student emails :</td>
         <td>
           <label for="emails"></label>
-          <input type="email" id="emails" name="emails" multiple required>
+          <input type="email" id="emails" placeholder="Student Email" name="emails" multiple required>
           <!-- <input type="submit"> -->
         </td>
       </tr>
@@ -142,8 +130,8 @@
       </table>
 
     </form>
-<b>
-
-
+ <b>
+</div> 
   </body>
+
 </html>
