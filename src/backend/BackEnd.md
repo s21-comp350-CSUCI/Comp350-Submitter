@@ -46,4 +46,29 @@ to the submitter SQS queue. This message is a json file and, as of this writing,
   "subdata" : "fc55c0190dde2bc413d8d1e79fb8cca2.json"
 }        
 ``` 
-## And the back end kicks in...
+## The back end makes its inglorious entrance...  
+The back ends app will first retrieve the next message from the SQS queue. Using our own 
+back end module of functions documented [here](./.backendmethods.md) we begin.  
+### Retrieve neccessary files and data
+* extracting the name of the json file from the SQS message.  
+* creating a directory using the subid from the subdata filename, for example  
+  * `/home/ec2-user/fc55c0190dde2bc413d8d1e79fb8cca2/`   
+* changing present working directories into the newly cerated directory, from there retrieving both the newly submitted 
+  json and python files from the S3 bucket, for example:  
+  * `/home/ec2-user/fc55c0190dde2bc413d8d1e79fb8cca2/fc55c0190dde2bc413d8d1e79fb8cca2.json`  
+  * `/home/ec2-user/fc55c0190dde2bc413d8d1e79fb8cca2/fc55c0190dde2bc413d8d1e79fb8cca2.py`
+    
+### Query database for test case parameters
+From the data in the json file, we 
+* query the database for the test inputs and outputs, and generate files for comparison, for example `test.in` and `test.out`.   
+
+These files will be formatted so that individual test case input for the specific problem is placed on a new line in `test.in`, 
+and the appropriate output expected for each input is placed on a new line in `test.out`.   
+The directory structure at this point:  
+* `/home/ec2-user/fc55c0190dde2bc413d8d1e79fb8cca2/fc55c0190dde2bc413d8d1e79fb8cca2.json`  
+* `/home/ec2-user/fc55c0190dde2bc413d8d1e79fb8cca2/fc55c0190dde2bc413d8d1e79fb8cca2.py`  
+* `/home/ec2-user/fc55c0190dde2bc413d8d1e79fb8cca2/test.in`  
+* `/home/ec2-user/fc55c0190dde2bc413d8d1e79fb8cca2/test.out`  
+
+### Execute submitted code in container  
+At this point we have the code to execute, the inputs to run, and the appropriate outputs for comparison.
