@@ -17,8 +17,10 @@
 <!-- Navigation Bar -->
     <header>
       <nav class="nav">
-        <a id="logo" href="">Submitter</a>
-        <a href="adminDashboard.html">Admin Dashboard</a>        
+        <a id="logo" href="student-token.html">Submitter</a>
+        <a href="eventCreation.html">Register an Event</a>
+        <a href="eventMod.html">Modify an Event</a>
+        <a href="student-token.html">Student Submit</a>        
         <a href="logout.html">Logout</a>
       </nav>
     </header>
@@ -48,6 +50,14 @@
         <td>Event Name :</td>
         <td><input type="text" placeholder="Event Name" name="eventname" required></td>
        </tr>
+
+      <!-- Event Disc-->
+      <tr>
+        <td>Event Description (optional): </td>
+        <td>
+         <textarea id="textBox" type="eventDisc" name="eventDisc"></textarea>
+       </td>
+      </tr>    
 
        <!-- Start Date -->
        <tr>
@@ -93,6 +103,14 @@
         </td>
        </tr>
 
+      <!-- Assignment Description-->
+      <tr>
+        <td>Assignment Description (optional): </td>
+        <td>
+          <textarea id="textBox" type="assignmenDisc" name="assignmentDisc"></textarea>
+        </td>
+       </tr>
+
        <!-- Test Cases -->
        <tr>
         <td>Test cases :</td>
@@ -114,7 +132,7 @@
         <td>List of student emails :</td>
         <td>
           <label for="emails"></label>
-          <input type="email" id="emails" placeholder="Student Email" name="emails" multiple required>
+          <textarea id="emails" name="email"></textarea>
           <!-- <input type="submit"> -->
         </td>
       </tr>
