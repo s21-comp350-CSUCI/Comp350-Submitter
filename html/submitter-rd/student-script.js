@@ -4,8 +4,7 @@ function addRow() {
 
   div.className = 'token';
   div.innerHTML = '<input class="token-input" type="text" name="token">' +
-  '<button class="sub-button" type="button" name="button" onclick="removeRow(this)">-</button>' +
-  '<button class="add-button" type="button" name="button" onclick="addRow()">+</button>';
+  '<button class="sub-button" type="button" name="button" onclick="removeRow(this)">-</button>';
   document.getElementById('token-box').appendChild(div);
 }
 
