@@ -45,7 +45,7 @@ the name of the new object, and if the new object is a student submission json f
 to the submitter SQS queue. This message is a json file and, as of this writing, contains just one key : value pair :
 ```
 {
-  "subdata" : "fc55c0190dde2bc413d8d1e79fb8cca2.json"
+  "subdata" : "/submissions/m.soltys/aws_labs/lab5_containers/fc55c0190dde2bc413d8d1e79fb8cca2/fc55c0190dde2bc413d8d1e79fb8cca2.json"
 }        
 ``` 
 ## The back end makes its inglorious entrance...  
