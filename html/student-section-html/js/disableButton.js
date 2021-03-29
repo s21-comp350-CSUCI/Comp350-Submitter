@@ -1,6 +1,7 @@
-$(document).ready(function() {
-  //when you upload file, disabled equals false
-  $('#file').change(function() {
-    $('#submit').attr('disabled',false);
-  });
-});
+function unblockButton() {
+  if ( document.getElementById('file').files.length > 0 ){
+    document.getElementById('submit').disabled = false;
+  }else{
+    document.getElementById('submit').disabled = true;
+  }
+}
