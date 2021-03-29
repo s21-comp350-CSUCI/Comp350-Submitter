@@ -2,13 +2,13 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width", initial-scale=1">
+    <!-- <meta name="viewport" content="width=device-width", initial-scale=1"> -->
     <link rel="stylesheet" href="styles.css">
     <title>Submitter</title>
   </head>
   <body>
     <header>
-      <a class="logo" href="#">Submitter</a>
+      <a class="logo" href="student-submission-token.html">Submitter</a>
       <nav>
         <ul class="nav_links">
           <li><a href="#">Admin Login</a></li>
@@ -17,9 +17,9 @@
       </nav>
     </header>
 
-    <h2>Student Submission</h2>
+    <h2>Student File Submission</h2>
     <div class="student_python_submission">
-      <input id="file" type="file">
+      <input id="file" type="file" onchange="unblockButton()">
       <input id="submit" type="submit" value="Upload" disabled="true">
     </div>
 
