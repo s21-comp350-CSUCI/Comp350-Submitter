@@ -82,9 +82,9 @@ code against all provided inputs from test.in, generating and generating the out
     python:3 executeSubmission.py fc55c0190dde2bc413d8d1e79fb8cca2`  
     
 This will spin up our container and keep it alive until it finishes executing. The present working directory gets bind-mounted
-to a newly created directory in the container `/usr/src/submitter`. Read more on the container and how it works [here]().
+to a newly created directory in the container `/usr/src/submitter`. Read more on the container and how it works [here](./docker/Docker.md).
 Since the default for bind mount is read-write, this allows our script in the container to generate an output that can be read 
-by our main thread. It is important that our scipt's  
+by our main thread. It is important that our script's  
 * Main thread __MUST__ wait for the worker thread to finish executing before moving on.  
 
 
