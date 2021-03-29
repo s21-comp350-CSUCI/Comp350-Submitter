@@ -4,6 +4,26 @@ button {
   color: white;
   background-color: #04177E;
   cursor: pointer;
+  padding: 8px;
+  border-radius: 12px;
+  margin-top: 1rem;
+}
+
+button1{
+  color: white;
+  background-color: #808080;
+  padding: 8px;
+  border-radius: 12px;
+  margin-top: 1rem;
+}
+
+label {
+  color: white;
+  background-color: #04177E;
+  padding: 8px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-top: 1rem;
 }
 
 .nav {

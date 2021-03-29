@@ -8,9 +8,8 @@
   <body>
     <header>
       <nav class="nav">
-        <a id="logo" href="">Submitter</a>
-        <a href="">Admin Login</a>
-        <a href="student-token.html">Student Submit</a>
+        <a id="logo" href="student-token.html">Submitter</a>
+        <a href="adminLogin.html">Admin Login</a>
       </nav>
     </header>
     <div class="submission-container">
@@ -18,9 +17,12 @@
       <h3>Tokens Validated, Submit file</h3>
       <div class="submission">
         <h3>Python File:</h3>
-        <button type="button" name="button">Browse</button>
+        <input type="file" id="upload" onchange="unblockButton()" hidden/>
+        <var> File Name PlaceHolder</var>
+        <label for="upload">Browse</label>
+
       </div>
-      <button type="button" name="button" onclick="showTestResults()">Submit</button>
+      <button type="button" id="submit" name="button" onclick="showTestResults()" disabled> Submit </button>
     </div>
     <!-- html below this line is hidden  -->
     <div class="test-cases">
