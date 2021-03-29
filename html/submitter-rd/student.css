@@ -70,6 +70,7 @@ label {
 
 .token-input {
   height: 25px;
+  width: 400px;
   border-radius: 4px;
   outline: none;
 }
