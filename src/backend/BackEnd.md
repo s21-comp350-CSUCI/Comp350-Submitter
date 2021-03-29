@@ -33,9 +33,10 @@ level directory of the bucket will contain two sub directories:
 * /output/  
 * we may have to consider placing all the event parameters into the bucket as well...  
 
-When a new submission is submitted, both a json and python file will be generated in a new directory. For example:
+When a new submission is submitted, both a json and python file will be generated in a new directory. For example:  
 `/submissions/m.soltys/aws_labs/lab5_containers/fc55c0190dde2bc413d8d1e79fb8cca2/fc55c0190dde2bc413d8d1e79fb8cca2.json`   
-and `/submissions/m.soltys/aws_labs/lab5_containers/fc55c0190dde2bc413d8d1e79fb8cca2/fc55c0190dde2bc413d8d1e79fb8cca2.py`  
+and  
+`/submissions/m.soltys/aws_labs/lab5_containers/fc55c0190dde2bc413d8d1e79fb8cca2/fc55c0190dde2bc413d8d1e79fb8cca2.py`  
 
 ## A new object/file in the S3 bucket triggers a lambda function...
   

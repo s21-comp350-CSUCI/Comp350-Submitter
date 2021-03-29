@@ -66,4 +66,9 @@ def createSubmissionID(tokenList, adminName, eventName, problemName):
     token = hashlib.md5(stringToken.encode()).hexdigest()
     return token
 
+# This function takes a json file and returns a python dictionary
+# then it will call the appropriate function to process the submission/event
+def getJsonDict(json_file):
+    # converts json to python dictionary
+    return json.loads(json_file)
 
