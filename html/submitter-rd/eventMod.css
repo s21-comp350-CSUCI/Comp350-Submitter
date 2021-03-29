@@ -3,12 +3,12 @@
 input[type="text"],
 input[type="assignment"],
 input[type="email"] {
-  width: 100%;
+  width: 95%;
   padding: 7px;
   margin: 2px 0 10px 0;
   display: inline-block;
-  border: groove;
-  background: #f1f1f1;
+  /*border: groove;*/
+  /*background: #f1f1f1;*/
 }
 
 input[type="date"] {
@@ -16,18 +16,18 @@ input[type="date"] {
   padding: 7px;
   margin: 2px 0 10px 0;
   display: inline-block;
-  border: groove;
+  /*border: groove;*/
 }
 
 select {
   outline: 0;
-  background: #f1f1f1;
+  /*background: #f1f1f1;*/
   background-image: none;
   width: 40%;
   height: 100%;
   color: black;
   cursor: pointer;
-  border: groove;
+  /*border: groove;*/
 }
 
 .select {
@@ -77,6 +77,25 @@ select {
   height: 200px;
   width: 350px;
 }
+
+textarea.html-text-box {
+  background-color:#ffffff;
+  background-image:url(http://);
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+  border-width:1;border-style:solid;
+  border-color:#000033;
+  font-family:Times;
+  font-size:12pt;
+  color:#000000;
+  width: 350px;
+}
+  
+input.html-text-box {background-color:#ffffff;
+  font-family:Times;
+  font-size:12pt;
+  color:#000000;}
+
 
 b {
   position: relative;

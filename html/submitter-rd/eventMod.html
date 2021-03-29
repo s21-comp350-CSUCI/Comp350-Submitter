@@ -8,26 +8,24 @@
   <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="eventMod.css">
-    <title>Submitter - Event Modification</title> 
+    <title>Event Modification</title> 
   </head>
-
 
   <body>
 <div class="container">
 <!-- Navigation Bar -->
     <header>
-      <nav class="nav">
-        <a id="logo" href="student-token.html">Submitter</a>
-        <a href="eventCreation.html">Register an Event</a>
-        <a href="eventMod.html">Modify an Event</a>
-        <a href="student-token.html">Student Submit</a>        
+      <nav class="nav">      
+        <a id="logo" href="student-token.html">Submitter</a> 
+        <a href="eventCreation.html">Create an Event</a>
+        <a href="adminDashboard.html">Dashboard</a>       
         <a href="logout.html">Logout</a>
       </nav>
     </header>
 
 <!-- Page Title -->
   <b>
-    <h1>Event Modification</h1>
+    <h1>Modify Event</h1>
 
 
 
@@ -46,7 +44,7 @@
         <!-- Event Name -->
        <tr>
         <td>Event Name :</td>
-        <td><input type="text" placeholder="Event Name" name="eventname" required></td>
+        <td><input type="text" name="eventname" required></td>
        </tr>
 
       <!-- Event Disc-->
@@ -97,7 +95,7 @@
        <tr>
         <td>Assignment Name:</td>
         <td>
-         <input type="assignment" placeholder="Assignment Name" name="assignment" required>
+         <input type="assignment" name="assignment" required>
         </td>
        </tr>
 
@@ -135,19 +133,35 @@
         </td>
       </tr>
 
+
+      <!-- Comment Box -->
+      <tr>
+        <td>Comments :</td>
+        <td>
+          <textarea name="comments" class="html-text-box"></textarea><br>
+          <button type="reset" value="Reset" class="html-text-box">Reset
+        </td>
+      </tr>
+
+
       <!-- Submit Modifications -->
        <tr>
         <td>
-          <button type="submit">Submit Modifications</button>
+          <button type="submit">Submit</button>
         </td>
        </tr>
 
 
       </table>
 
+
+
+
     </form>
  <b>
 </div> 
   </body>
+
+
 
 </html>
