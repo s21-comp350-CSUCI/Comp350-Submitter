@@ -16,8 +16,8 @@ def retrieveMessageFromQueue(sqsClient, queURL):
     # to shorten it, then we have an error because too short. Once we 
     # know the longest time it takes to process a job, we set the 
     # timeout to just over that.
-    sqs_response = sqs_client.receive_message(
-        QueueUrl=QueueUrl,
+    sqs_response = sqsClient.receive_message(
+        QueueUrl=queURL,
         AttributeNames=[
             'SentTimestamp'
         ],
@@ -32,21 +32,23 @@ def retrieveMessageFromQueue(sqsClient, queURL):
     message = sqs_response['Messages'][0] #get message from sqs queue
     return message
 
-# This function will return an object (json, py, etc)
-# from a named bucket or default 
-def retrieveObjectFromBucket(obj, s3bucket='comp350-submitter-bucket'):
-    s3_response = s3_client.get_object(Bucket=s3bucket, Key=obj)
-    return s3_response
 
-# This function deletes a message from the queue (to be done 
+# This function deletes a message from the queue (to be done
 # upon completion of task, else message is visible on queue again)
 def deleteMessageFromQueue(sqsClient, queURL, message):
     #delete message
     receipt_handle = message['ReceiptHandle']
-    sqs_client.delete_message(
-        QueueUrl=QueueUrl,
+    sqsClient.delete_message(
+        QueueUrl=queURL,
         ReceiptHandle=receipt_handle
     )
+
+
+# This function will return an object (json, py, etc)
+# from a named bucket or default 
+def retrieveObjectFromBucket(obj, s3client, s3bucket='comp350-submitter-bucket'):
+    s3_response = s3client.get_object(Bucket=s3bucket, Key=obj)
+    return s3_response
 
 # This function will create a unique 128-bit token 
 # for a student to use for submitting code to an event.

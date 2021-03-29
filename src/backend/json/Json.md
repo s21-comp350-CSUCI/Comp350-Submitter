@@ -1,5 +1,5 @@
 # JSON - JavaScript Object Notation - examples  
-We need a format to transfer data from the front end user to the rest of the app architecture. These .json files are what the front end will be creating, populating with relevant data, and then uploading to the S3 bucket.  
-In python, the json module allows you to read/write and wrangle json objects in a way much like python dictionaries.  
-This README will be updated soon to explain the .json examples and include examples of how to create/read json with python 3.
+We will use json for transmitting data between resources. Examples of these json files:  
+* The data for a student submission accompanying a source code submission can be found [here](./submission_example.json)  
+* The message produced by a lambda function to be put in the SQS queue can be found [here](./message.json)
 
