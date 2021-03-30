@@ -1,4 +1,5 @@
-# How the back end works _v 1.0_   
+# How the back end works _v 1.1_
+Change log found [here](.backendchangelog.md)
 Authored by Sam Mazarei  
 ### Before the backend runs, a student submission is generated...  
 When a student submission is generated, two objects will bu uploaded to the
@@ -74,13 +75,13 @@ The directory structure at this point:
 * `/home/ec2-user/fc55c0190dde2bc413d8d1e79fb8cca2/test.in`  
 * `/home/ec2-user/fc55c0190dde2bc413d8d1e79fb8cca2/test.out`  
 
-### Execute submitted code in container  
+### Execute submitted code in Python 3.9 container  
 At this point we have the code to execute, the inputs to run, and the appropriate outputs for comparison. We are using a
 python 3 docker image with a custom, executable script [./executeSubmission.py]() installed that will execute the submitted 
 code against all provided inputs from test.in, generating and generating the output file. Our script will now:
 * Create a new thread that will in turn execute the appropriate `docker run` command.  
   * `docker run -it --rm --name="subidfc55c0190dde2bc413d8d1e79fb8cca2" -v "$PWD":/usr/src/submitter -w /usr/src/submitter 
-    python:3 executeSubmission.py fc55c0190dde2bc413d8d1e79fb8cca2`  
+    python:3.9 executeSubmission.py fc55c0190dde2bc413d8d1e79fb8cca2`  
     
 This will spin up our container and keep it alive until it finishes executing. The present working directory gets bind-mounted
 to a newly created directory in the container `/usr/src/submitter`. Read more on the container and how it works [here](./docker/Docker.md).
