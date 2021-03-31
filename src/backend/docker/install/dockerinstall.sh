@@ -8,12 +8,12 @@
 # this allows the script to be run with root (owner) privelege
 # execute script as $ ./dockerinstall.sh
 
-
 sudo yum update -y
 # installing
 sudo amazon-linux-extras install docker
 sudo service docker start
 sudo usermod -a -G docker ec2-user
 sudo systemctl enable docker
-# Most likely will need to be restarted but maybe not
-#sudo shutdown -r now
+# pull the base image for our container
+docker pull python:3.9
+

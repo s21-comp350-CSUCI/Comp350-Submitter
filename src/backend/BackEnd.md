@@ -1,4 +1,5 @@
-# How the back end works _v 1.0_   
+# How the back end works _v 1.1_
+Change log found [here](.backendchangelog.md)
 Authored by Sam Mazarei  
 ### Before the backend runs, a student submission is generated...  
 When a student submission is generated, two objects will bu uploaded to the
@@ -33,9 +34,10 @@ level directory of the bucket will contain two sub directories:
 * /output/  
 * we may have to consider placing all the event parameters into the bucket as well...  
 
-When a new submission is submitted, both a json and python file will be generated in a new directory. For example:
+When a new submission is submitted, both a json and python file will be generated in a new directory. For example:  
 `/submissions/m.soltys/aws_labs/lab5_containers/fc55c0190dde2bc413d8d1e79fb8cca2/fc55c0190dde2bc413d8d1e79fb8cca2.json`   
-and `/submissions/m.soltys/aws_labs/lab5_containers/fc55c0190dde2bc413d8d1e79fb8cca2/fc55c0190dde2bc413d8d1e79fb8cca2.py`  
+and  
+`/submissions/m.soltys/aws_labs/lab5_containers/fc55c0190dde2bc413d8d1e79fb8cca2/fc55c0190dde2bc413d8d1e79fb8cca2.py`  
 
 ## A new object/file in the S3 bucket triggers a lambda function...
   
@@ -44,7 +46,7 @@ the name of the new object, and if the new object is a student submission json f
 to the submitter SQS queue. This message is a json file and, as of this writing, contains just one key : value pair :
 ```
 {
-  "subdata" : "fc55c0190dde2bc413d8d1e79fb8cca2.json"
+  "subdata" : "/submissions/m.soltys/aws_labs/lab5_containers/fc55c0190dde2bc413d8d1e79fb8cca2/fc55c0190dde2bc413d8d1e79fb8cca2.json"
 }        
 ``` 
 ## The back end makes its inglorious entrance...  
@@ -73,13 +75,13 @@ The directory structure at this point:
 * `/home/ec2-user/fc55c0190dde2bc413d8d1e79fb8cca2/test.in`  
 * `/home/ec2-user/fc55c0190dde2bc413d8d1e79fb8cca2/test.out`  
 
-### Execute submitted code in container  
+### Execute submitted code in Python 3.9 container  
 At this point we have the code to execute, the inputs to run, and the appropriate outputs for comparison. We are using a
 python 3 docker image with a custom, executable script [./executeSubmission.py]() installed that will execute the submitted 
 code against all provided inputs from test.in, generating and generating the output file. Our script will now:
 * Create a new thread that will in turn execute the appropriate `docker run` command.  
   * `docker run -it --rm --name="subidfc55c0190dde2bc413d8d1e79fb8cca2" -v "$PWD":/usr/src/submitter -w /usr/src/submitter 
-    python:3 executeSubmission.py fc55c0190dde2bc413d8d1e79fb8cca2`  
+    python:3.9 executeSubmission.py fc55c0190dde2bc413d8d1e79fb8cca2`  
     
 This will spin up our container and keep it alive until it finishes executing. The present working directory gets bind-mounted
 to a newly created directory in the container `/usr/src/submitter`. Read more on the container and how it works [here](./docker/Docker.md).
