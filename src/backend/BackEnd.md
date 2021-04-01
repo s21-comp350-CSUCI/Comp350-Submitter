@@ -1,6 +1,5 @@
 # How the back end works _v 1.1_
 Change log found [here](.backendchangelog.md)
-Authored by Sam Mazarei  
 ### Before the backend runs, a student submission is generated...  
 When a student submission is generated, two objects will bu uploaded to the
 submitter S3 bucket. One is a single .py file provided by the student(s),
@@ -51,7 +50,7 @@ to the submitter SQS queue. This message is a json file and, as of this writing,
 ``` 
 ## The back end makes its inglorious entrance...  
 ### The following is an overview of how the script to process student submissions
-The back end's [processStudentsTestCases.py]() will first retrieve the next message from the SQS queue, using our own 
+The back end's [processStudentsTestCases.py](./processStudentTestCases.py) will first retrieve the next message from the SQS queue, using our own 
 back end module of functions documented [here](./.backendmethods.md) we begin.  
 ### Retrieve neccessary files and data  
 Our script begins by  
@@ -77,7 +76,7 @@ The directory structure at this point:
 
 ### Execute submitted code in Python 3.9 container  
 At this point we have the code to execute, the inputs to run, and the appropriate outputs for comparison. We are using a
-python 3 docker image with a custom, executable script [./executeSubmission.py]() installed that will execute the submitted 
+python 3 docker image with a custom, executable script [executeSubmission.py](./executeSubmiaaion.py) installed that will execute the submitted 
 code against all provided inputs from test.in, generating and generating the output file. Our script will now:
 * Create a new thread that will in turn execute the appropriate `docker run` command.  
   * `docker run -it --rm --name="subidfc55c0190dde2bc413d8d1e79fb8cca2" -v "$PWD":/usr/src/submitter -w /usr/src/submitter 
