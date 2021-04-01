@@ -33,7 +33,6 @@
     <form action="" method="POST">
       <select name="selectEvent" id="openEvents" required>
         <option  value="" selected disabled>Select an event to modify...</option>
-        <option value="Programming Competition">Programming Competition</option>
       </select>
 
 
@@ -44,7 +43,7 @@
         <!-- Event Name -->
        <tr>
         <td>Event Name :</td>
-        <td><input type="text" name="eventname" required></td>
+        <td><input id = "textBox" type="eventName" name="eventname" required></td>
        </tr>
 
       <!-- Event Disc-->
@@ -95,7 +94,7 @@
        <tr>
         <td>Assignment Name:</td>
         <td>
-         <input type="assignment" name="assignment" required>
+         <input id ="textBox" type="assignmentName" name="assignmentName" required>
         </td>
        </tr>
 
@@ -133,12 +132,12 @@
         </td>
       </tr>
 
-
       <!-- Comment Box -->
       <tr>
         <td>Comments :</td>
         <td>
-          <textarea name="comments" class="html-text-box"></textarea><br>
+          <textarea name="comments" class="html-text-box"></textarea>
+          <br></b>
           <button type="reset" value="Reset" class="html-text-box">Reset
         </td>
       </tr>
@@ -151,7 +150,6 @@
         </td>
        </tr>
 
-
       </table>
 
 
@@ -161,7 +159,5 @@
  <b>
 </div> 
   </body>
-
-
 
 </html>
