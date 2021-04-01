@@ -76,7 +76,7 @@ The directory structure at this point:
 
 ### Execute submitted code in Python 3.9 container  
 At this point we have the code to execute, the inputs to run, and the appropriate outputs for comparison. We are using a
-python 3 docker image with a custom, executable script [executeSubmission.py](./executeSubmiaaion.py) installed that will execute the submitted 
+python 3 docker image with a custom, executable script [executeSubmission.py](./executeSubmission.py) installed that will execute the submitted 
 code against all provided inputs from test.in, generating and generating the output file. Our script will now:
 * Create a new thread that will in turn execute the appropriate `docker run` command.  
   * `docker run -it --rm --name="subidfc55c0190dde2bc413d8d1e79fb8cca2" -v "$PWD":/usr/src/submitter -w /usr/src/submitter 
@@ -104,7 +104,7 @@ Now that our worker thread has finished executing, our script's current director
 Our script will now:  
 * upload `fc55c0190dde2bc413d8d1e79fb8cca2.out` to submitter S3 bucket.  
 * change working directories up one to `/home/ec2-user/`.  
-* delete the directory '/home/ec2-user/fc55c0190dde2bc413d8d1e79fb8cca2/'
+* delete the directory `/home/ec2-user/fc55c0190dde2bc413d8d1e79fb8cca2/`
 
 Finally, now that the submission has been processed, the working space has been cleaned, and the output generated has been
 sent to the next destination, our script must:
