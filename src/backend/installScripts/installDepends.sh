@@ -27,3 +27,6 @@ docker --version
 python3 --version
 pip3 --version
 
+# Install git
+sudo yum install git -y
+
