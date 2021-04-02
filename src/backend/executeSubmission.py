@@ -1,9 +1,18 @@
 #!/usr/local/bin/python3
 # This script will be run in a docker container executed with docker run,
 # note the container specific path to python3 on first line.
-import os
 import sys
 import csv
+# helper function that opens a file and places each line 
+# in a list, and returns the lest.
+def returnFileAsList(file):
+  # Open and read from test.in into inputList
+  with open(file) as f:
+    fileList = f.readlines()
+  # Removing whitespace and clean up newlines
+  fileList = [x.strip() for x in content]
+  return fileList
+
 
 # Check to make sure script is executed with correct number of arguments
 if len(sys.argv) < 2 or len(sys.argv) > 2:
@@ -16,33 +25,59 @@ subID = str(sys.argv[1])
 # Relevant file names
 inFileName = "test.in"
 outfileName = "test.out"
-subName = subID + ".py"
+subFileName = subID + ".py"
+outputfilecsv = subID + ".out"
 
 # Change current working directory to /usr/src/submitter (should be there already)
 workingDirectory = "/usr/src/submitter"
 os.chdir(workingDirectory)
 
 # Open and read from test.in into inputList
-with open(inFileName) as inf:
-    inputList = inf.readlines()
-# Removing whitespace and clean up newlines
-inputList = [x.strip() for x in content] 
+inputList = returnFileAsList(inFileName)
 
 # Open and read from test.out into outputList
-with open(outFileName) as outf:
-    outputList = outf.readlines()
-# Removing whitespace and clean up newlines
-outputList = [x.strip() for x in content] 
+outputList = returnFileAsList(outFileName)
 
-# Open for writing to a file called subID.out
+# Open for writing to a file called subID.out, overwrite
+with open(outputfilecsv, mode='w', dialect='unix') as csvFile:
+  # Define the field headers
+  fields = ['input', 'expected output', 'actual output', 'pass/fail']
+  writer = csv.DictWriter(csvFile, fieldnames=fields)
+  # Write the first row header fields
+  writer.writeheader()
+  # In a loop execute subID.py with an input from the input array,
+  # using subprocesses so that the return code, stdout and stderr can all 
+  # captured. 
+  for i in range(len(inputList)):
+    # Define command as string
+    cmd = "{} {} {}".format("python3", subFileName, inputList[i]) 
+    
+    # This will execute the command after calling a bash shell
+    sp = subprocess.Popen(cmd,
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE)
 
-# In a loop execute subID.py with an input from the input array,
-# using subprocesses so that the return code, stdout and stderr can all 
-# captured. 
+    # Capture the return code (recall, subprocess is a new thread)
+    rc = sp.wait()
 
-# For each input element create an entry in subID.out with input, expected output, output, pass/fail fields.
+    # Separate the output and error by communicating with sp variable.
+    # This is similar to Tuple where we store two values to two different variables
+    out,err=sp.communicate()
+    out, err = out.decode(), err.decode()
+    # rc and stderr are here for future proofing,
+    # in case in the future these can be communicated to the submitter.
+    # Is the output what it should be
+    result = "Pass" if out == outputList[i] else "Fail"
+    
+    # Write the row to csvFile
+    writer.writerow({fields[0]: inputList[i], fields[1]: outputList[i], fields[2]: out, fields[3]: result})
+  
 
-# Close all files and exit successfully.
+# Successfully completed
+exit()
+    
+
 
 
 
