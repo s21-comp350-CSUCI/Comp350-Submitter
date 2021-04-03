@@ -1,65 +1,52 @@
+import logging
 
-# Access AWS RDS with Python 3
-# DB instance identifier: rds
-# username: admin
-# pass:
-# host: rds.cmawzoprxmnb.us-east-1.rds.amazonaws.com
-# port: 3306
-# Availability zone: us-east-1a
-
-# import boto3
-# import json
 import pymysql
 from django import db
 
-pymysql.connect('<host FMI>', '<username FMI>', '<pass FMI>')
-cursor = db.cursor()
-cursor.execute("select version()")
-# fetch Only the first part of the data by using fetch one
-data = cursor.fetcfone()
-print(data)
+#  connection to data base
+from RDS import cursor
 
-# Create Table and Data base
 
-# how to drop the data base just encase of needed its needed to drop
-sql = '''drop database kgptalkie'''
-cursor.execute(sql)
+def connect():
+    db_connect = pymysql.connect(
+        host = "new-submitter-rds.cmawzoprxmnb.us-east-1.rds.amazonaws.com",
+        user = "admin",
+        password = "comp350_rds",
+        database = "new-submitter-rds"
+    )
+    return db_connect
 
-# create data base still need to be done by other teams
-# example of creation of DB
-sql = '''create database kgptalkie'''
-cursor.execute(sql)
+#  event string format
+def eventStringFrotmat(adminId, eventName, startDate, endDate):
+    return "The admin is " + str(adminId) + ", event = " + str(eventName) + ", start date: " + str(startDate) + ", end date" + str(endDate) + "."
 
-# connect in order to use data base
-cursor.connection.commit()
+# insert Event
+def insertEvent(eventEntry):
+    # connects to db
+    db_connect = connect()
+    sqlCommiter = db_connect.cursor()
 
-sql = '''use kgptalkie'''
-cursor.execute(sql)
+    # Not sure whats going to split the string change delimiter to appropriately format
+    splitString = str(eventEntry).split('/t,', 4)
+    adminId = splitString[0]
+    eventName = splitString[1]
+    startDate = splitString[2]
+    endDate = splitString[3]
 
-# start cr5eating table person
-sql = '''
-create table person (
-id int not null auto_increment,
-fname text,
-lname text,
-primary key(id)
-)
-'''
-cursor.execute(sql)
+    sqlCommiter.execute("INSERT INTO event (adminId, eventName, startDate, endDate) VALUES (%s, %s, %s, %s) ",
+                            (adminId, eventName, startDate, endDate))
+    db_connect.commit()
+    db_connect.close()
+    sqlCommiter.close()
 
-# insert data to the table
-sql = '''
-insert into person(fname, lname) values ('%s', '%s')''' % ('<fname FMI>', '<lname FMI>')
-cursor.execute(sql)
-db.commit()
 
-# read what is on tables
-sql = '''select * from person'''
-cursor.execute(sql)
-cursor.fetchall()
+ def deleteEvent(eventEntry):
+            db_connect = connect()
+            cursor = db_connect.cursor()
 
-# in a case we want top describe the data base information we can use
-sql = '''desc person'''
-cursor.execute(sql)
-cursor.fetchall()
-
+            #deletes were based on just the unique id of the thing, the comment is the sql format for it
+            #delete that entry
+            cursor.execute("DELETE FROM event WHERE event_id = \""+ str(eventEntry) + "\"")
+            db_connect.commit()
+            cursor.close()
+            db_connect.close()
