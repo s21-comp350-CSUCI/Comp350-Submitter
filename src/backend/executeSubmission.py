@@ -3,6 +3,8 @@
 # note the container specific path to python3 on first line.
 import sys
 import csv
+import os
+import subprocess
 # helper function that opens a file and places each line 
 # in a list, and returns the lest.
 def returnFileAsList(file):
@@ -10,7 +12,7 @@ def returnFileAsList(file):
   with open(file) as f:
     fileList = f.readlines()
   # Removing whitespace and clean up newlines
-  fileList = [x.strip() for x in content]
+  fileList = [x.strip() for x in fileList]
   return fileList
 
 
@@ -23,8 +25,8 @@ if len(sys.argv) < 2 or len(sys.argv) > 2:
 subID = str(sys.argv[1])
 
 # Relevant file names
-inFileName = "test.in"
-outfileName = "test.out"
+inFileName = "./test.in"
+outFileName = "test.out"
 subFileName = subID + ".py"
 outputfilecsv = subID + ".out"
 
@@ -39,7 +41,7 @@ inputList = returnFileAsList(inFileName)
 outputList = returnFileAsList(outFileName)
 
 # Open for writing to a file called subID.out, overwrite
-with open(outputfilecsv, mode='w', dialect='unix') as csvFile:
+with open(outputfilecsv, mode='w') as csvFile:
   # Define the field headers
   fields = ['input', 'expected output', 'actual output', 'pass/fail']
   writer = csv.DictWriter(csvFile, fieldnames=fields)
@@ -64,14 +66,15 @@ with open(outputfilecsv, mode='w', dialect='unix') as csvFile:
     # Separate the output and error by communicating with sp variable.
     # This is similar to Tuple where we store two values to two different variables
     out,err=sp.communicate()
-    out, err = out.decode(), err.decode()
+    # rstrip() is used to strip a single trailing whitespace that is added by the print() function.
+    out, err = out.decode().rstrip(), err.decode().rstrip()
     # rc and stderr are here for future proofing,
     # in case in the future these can be communicated to the submitter.
     # Is the output what it should be
-    result = "Pass" if out == outputList[i] else "Fail"
+    result = "Pass" if str(out) == str(outputList[i]) else "Fail"
     
     # Write the row to csvFile
-    writer.writerow({fields[0]: inputList[i], fields[1]: outputList[i], fields[2]: out, fields[3]: result})
+    writer.writerow({fields[0]: str(inputList[i]), fields[1]: str(outputList[i]), fields[2]: str(out), fields[3]: result})
   
 
 # Successfully completed
