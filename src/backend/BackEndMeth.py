@@ -72,3 +72,11 @@ def getJsonDict(json_file):
     # converts json to python dictionary
     return json.loads(json_file)
 
+# This function will poll from the SQS until a message is received
+def pollSQS(sqsClient, queueURL):
+    while True:
+        message = retrieveMessageFromQueue(sqsClient, queueURL)
+        if message:
+            return message
+        else:
+            continue
