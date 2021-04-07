@@ -2,7 +2,137 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="student.css">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+          
+      button {
+        color: white;
+        background-color: #04177E;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 12px;
+        margin-top: 1rem;
+      }
+      
+      button1{
+        color: white;
+        background-color: #808080;
+        padding: 8px;
+        border-radius: 12px;
+        margin-top: 1rem;
+      }
+      
+      label {
+        color: white;
+        background-color: #04177E;
+        padding: 8px;
+        border-radius: 12px;
+        cursor: pointer;
+        margin-top: 1rem;
+      }
+      
+      .nav {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        height: 64px;
+        width: 100%;
+        background: #04177E;
+        top: 0;
+        left: 0;
+        position: fixed;
+      }
+      
+      .nav a {
+        color: white;
+        padding: 25px;
+        text-decoration: none;
+      }
+      
+      .nav a:hover {
+        text-decoration: underline;
+      }
+      
+      #logo {
+        font-family: 'Fredoka One', cursive;
+        font-size: 1.5rem;
+        padding: 50px;
+      }
+      
+      .token-container {
+        padding-top: 70px;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+      }
+      
+      .token {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        margin-top: 10px;
+      }
+      
+      .token-input {
+        height: 25px;
+        width: 400px;
+        border-radius: 4px;
+        outline: none;
+      }
+      
+      .validate-button {
+        height: 30px;
+        margin-left: 8px;
+        margin-right: 4px;
+        border-radius: 8px;
+        outline: none;
+      }
+      
+      .add-button {
+        height: 30px;
+        border-radius: 16px;
+        outline: none;
+      }
+      
+      .sub-button {
+        height: 30px;
+        margin-left: 8px;
+        margin-right: 4px;
+        border-radius: 16px;
+        outline: none;
+      }
+      
+      .submission-container {
+        padding-top: 70px;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+      }
+      
+      .submission {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+      }
+      
+      .submission h3 {
+         margin-right: 20px;
+      }
+      
+      .submission-container button {
+        height: 35px;
+        border-radius: 16px;
+        outline: none;
+      }
+      
+      .test-cases {
+        display: none;
+        padding-top: 70px;
+        flex-flow: column nowrap;
+        align-items: center;
+      }
+      
+    </style>
     <title>File Submission</title>
   </head>
   <body>
