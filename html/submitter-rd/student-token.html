@@ -2,7 +2,136 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="student.css">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+      button {
+        color: white;
+        background-color: #04177E;
+        cursor: pointer;
+        padding: 8px;
+        border-radius: 12px;
+        margin-top: 1rem;
+      }
+
+      button1{
+        color: white;
+        background-color: #808080;
+        padding: 8px;
+        border-radius: 12px;
+        margin-top: 1rem;
+      }
+
+      label {
+        color: white;
+        background-color: #04177E;
+        padding: 8px;
+        border-radius: 12px;
+        cursor: pointer;
+        margin-top: 1rem;
+      }
+
+      .nav {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        height: 64px;
+        width: 100%;
+        background: #04177E;
+        top: 0;
+        left: 0;
+        position: fixed;
+      }
+
+      .nav a {
+        color: white;
+        padding: 25px;
+        text-decoration: none;
+      }
+
+      .nav a:hover {
+        text-decoration: underline;
+      }
+
+      #logo {
+        font-family: 'Fredoka One', cursive;
+        font-size: 1.5rem;
+        padding: 50px;
+      }
+
+      .token-container {
+        padding-top: 70px;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+      }
+
+      .token {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        margin-top: 10px;
+      }
+
+      .token-input {
+        height: 25px;
+        width: 400px;
+        border-radius: 4px;
+        outline: none;
+      }
+
+      .validate-button {
+        height: 30px;
+        margin-left: 8px;
+        margin-right: 4px;
+        border-radius: 8px;
+        outline: none;
+      }
+
+      .add-button {
+        height: 30px;
+        border-radius: 16px;
+        outline: none;
+      }
+
+      .sub-button {
+        height: 30px;
+        margin-left: 8px;
+        margin-right: 4px;
+        border-radius: 16px;
+        outline: none;
+      }
+
+      .submission-container {
+        padding-top: 70px;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+      }
+
+      .submission {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+      }
+
+      .submission h3 {
+         margin-right: 20px;
+      }
+
+      .submission-container button {
+        height: 35px;
+        border-radius: 16px;
+        outline: none;
+      }
+
+      .test-cases {
+        display: none;
+        padding-top: 70px;
+        flex-flow: column nowrap;
+        align-items: center;
+      }
+    </style>
     <title>Token Submission</title>
   </head>
   <body>
@@ -16,8 +145,8 @@
       <div id="token-box">
         <div class="token">
 
-          <input class="token-input" type="text" name="token">
-          <button class="validate-button"type="button" name="button" onclick="validate()">Validate</button>
+          <input id="studentToken-0" class="token-input" type="text" name="token">
+          <button id="btn" class="validate-button"type="button" name="button">Validate</button>
           <!-- <button class="add-button" type="button" name="button" onclick="addRow()">+</button> -->
         </div>
       </div>
@@ -27,6 +156,82 @@
         <button class="add-button" type="button" name="button" onclick="addRow()">+</button>
       </div>
     </div>
-    <script type="text/javascript" src="student-script.js"></script>
+
+    <!-- for debuging the JSON creation -->
+    <p>JSON Student output (debug):</p>
+    <div id="json">
+      <pre></pre>
+    </div>  
+
+    <script>
+      let students = [];
+          
+      function addRow() {
+        const div = document.createElement('div');
+      
+        count++;
+        div.className = 'token';
+        div.innerHTML = '<input id="studentToken-'+ count +'"' +'class="token-input"  type="text" name="token">' +
+        '<button class="sub-button" type="button" name="button" onclick="removeRow(this)">-</button>';
+        document.getElementById('token-box').appendChild(div);
+      
+        // for debug
+        console.log(count);
+      }
+      
+      function removeRow(input) {
+        input.parentNode.remove()
+        count = count - 1;
+        // for debug
+        console.log(count);
+      }
+      
+      
+      function showTestResults() {
+        var submit = document.getElementsByClassName('submission-container')[0];
+        var tests = document.getElementsByClassName('test-cases')[0];
+        tests.style.display = "flex";
+        submit.style.display = "none";
+      }
+      
+      function unblockButton() {
+        // const filename = document.getElementById('upload').files[0].name;
+        if ( document.getElementById('upload').files.length > 0 ){
+            document.getElementById("submit").style.backgroundColor = "04177E";
+            document.getElementById('submit').disabled = false;
+          }else{
+            document.getElementById("submit").style.backgroundColor = "808080";
+            document.getElementById('submit').disabled = true;
+          }
+      }
+      
+      // commented for debuging
+      //function validate() {
+      //  window.location.href = "student-submission.html";
+      //}
+      
+      // create student JSON
+      const createStudents = (ev) =>{
+        ev.preventDefault(); // prevents form from submitting
+      
+        let evn = {
+        
+           "tokenHash0": document.getElementById('studentToken-0').value,
+          
+        }
+  
+        console.log(evn);
+        students.push(evn);
+      
+        // for debuging to print the JSON output on the website
+        console.warn('added' , {students} );
+        let pre = document.querySelector('#json pre');
+        pre.textContent = '\n' + JSON.stringify(students, '\t', 2);
+      }
+      
+      document.addEventListener('DOMContentLoaded', ()=>{
+        document.getElementById('btn').addEventListener('click', createStudents);
+      });
+    </script>
   </body>
 </html>
