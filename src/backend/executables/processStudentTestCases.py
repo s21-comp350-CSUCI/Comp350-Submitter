@@ -6,9 +6,13 @@ import threading
 
 
 class ClientThread(threading.Thread):
-  def __init__(self, subID):
+  def __init__(self, subID, msgHandle):
     threading.Thread.__init__(self)
     self.subID = subID
+    self.testin = ""
+    self.testout = ""
+    self.studentemaillist = []
+
 
   def run(self):
     # This is the entry point for the thread. At this point in the code

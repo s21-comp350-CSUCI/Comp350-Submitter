@@ -8,14 +8,10 @@ import sys
 #bucket_name = 'comp350-submitter-bucket'
 #s3_client = boto3.client('s3')
 
-
-# This function will return a message in
-# json format from the sqs queue
+# Takes an sqs client and the url for the sqs queue. 
+# Returns ENTIRE message from the named queue. 
+# Uses a visibility timeout of 150
 def retrieveMessageFromQueue(sqsClient, queURL):
-    # Visibility timeout starting at 150, since it is better to have
-    # to shorten it, then we have an error because too short. Once we 
-    # know the longest time it takes to process a job, we set the 
-    # timeout to just over that.
     sqs_response = sqsClient.receive_message(
         QueueUrl=queURL,
         AttributeNames=[
@@ -28,15 +24,12 @@ def retrieveMessageFromQueue(sqsClient, queURL):
         VisibilityTimeout=150, 
         WaitTimeSeconds=0
     )
-
-    message = sqs_response['Messages'][0] #get message from sqs queue
     return message
 
 
-# This function deletes a message from the queue (to be done
-# upon completion of task, else message is visible on queue again)
+# Takes the client and url of the message to delete, and the message.
+# Uses the message handle from the message object to delete.
 def deleteMessageFromQueue(sqsClient, queURL, message):
-    #delete message
     receipt_handle = message['ReceiptHandle']
     sqsClient.delete_message(
         QueueUrl=queURL,
@@ -44,10 +37,11 @@ def deleteMessageFromQueue(sqsClient, queURL, message):
     )
 
 
-# This function will return an object (json, py, etc)
-# from a named bucket or default 
-def retrieveObjectFromBucket(obj, s3client, s3bucket='comp350-submitter-bucket'):
-    s3_response = s3client.get_object(Bucket=s3bucket, Key=obj)
+
+# This function takes the name of the object to download, the name of the file to save it as,
+# the s3 client, and the bucket name. It returns a response.
+def retrieveObjectFromBucket(objname, dstname, s3client, s3bucket='comp350-submitter-bucket'):
+    s3_response = s3client.download_file(s3bucket, srcname, dstname)
     return s3_response
 
 # This function will create a unique 128-bit token 
@@ -63,6 +57,16 @@ def createStudentToken(studentEmail, adminName, eventName):
 def createSubmissionID(tokenList, adminName, eventName, problemName):
     tokenList.sort()
     stringToken = "{}:{}:{}:{}".format(*tokenList, adminName, eventName, problemName)
+    token = hashlib.md5(stringToken.encode()).hexdigest()
+    return token
+
+# To create a unique name for a test.in or test.out file, it should be unique to 
+# the assignemnt it corresponds to, which in turn is unique to an event, and events are uniqu to admins.
+# i.e. def createTestCaseFileName("in", "m.soltys", "350", "Assignemnt 16") gives you 
+# a unique hash for an input file. 
+def createTestCaseFileName(inorout, adminName, eventName, problemName):
+    stringToken = "{}:{}:{}:{}".format("test.in" if inorout == "in" else "test.out", \
+      adminName, eventName, problemName)
     token = hashlib.md5(stringToken.encode()).hexdigest()
     return token
 
