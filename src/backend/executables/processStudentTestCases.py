@@ -1,42 +1,64 @@
 #!/bin/python3
 # https://realpython.com/intro-to-python-threading/#conclusion-threading-in-python
-# server.py - a simple threaded server
 import threading
-
-
+import os
 
 class ClientThread(threading.Thread):
-  def __init__(self, subID, msgHandle):
+  def __init__(self,msg):
     threading.Thread.__init__(self)
-    self.subID = subID
-    self.testin = ""
-    self.testout = ""
-    self.studentemaillist = []
+    # The message from the SQS queue
+    self.message = msg
+    # Return a python dict
+    msgDict = self.getJsonDict(self.message)
+    # Path to subID.json in S3 bucket 
+    self.subdata = self.extractDataFilePath(msgDict)
+    # Submission ID unique to Admin/event/assignment/tokens.
+    self.subID = os.path.basename(msgDict["Messages"][0]["Body"]["subdata"]).rstrip(".json")
+    # Working directory name
+    self.workingDirectory = "/usr/app/submission/{}/".format(self.subID)
+    # Test input full path file name
+    self.testIn = None
+    # Test output full path file name 
+    self.testOut = None
+    # The student subID.py
+    self.studentSubmission = None
+    # Admin name
+    self.adminName = None
+    # Event name
+    self.eventName = None
+    # Assignemnt name
+    self.assignmentName = None
+    # Email addresses corresponding to submission tokens.
+    self.studentEmailList = None
+
 
 
   def run(self):
-    # This is the entry point for the thread. At this point in the code
-    # the constructor has executed
-    pass
+    # If the dir exists, another thread is still running a previous submission
+    while os.path.isdir(workingDirectory):
+      assert not os.path.dir(self.workingDirectory), "Bug. Directory {} exists. Second submission \
+       submitted before first graded?.".format(self.workingDirectory)
+       continue
+    # Create the working directory and change into it.
+    os.mkdir(workingDirectory)
+    os.chdir(workingDirectory)
 
-  pass
-  # All the functionality described in backendmeth.md
-  # Will be defined and executed in this thread class
+    # retrieve the json file and place it in the current directory
+    res_json = retrieveObjectFromBucket(self.subdata, "{}/{}.json".format(self.workingDirectory, self.subID), s3client, s3bucket='comp350-submitter-bucket')
+
 
 #########################################################################
-#########################################################################
+######################################################################### 
   
+
 def main():
   
   
   
   while True:
     # Poll for a message on the queue
-    newMessage = pollSQS()
-    # retrieve the subID from the json formated newMessage
-    subID = extractSubID(newMessage)
-    # pass the subID off to a worker thread and move on
-    t = ClientThread(subID)
+    message = pollSQS()
+    t = ClientThread(message)
     t.start()
     continue
 
