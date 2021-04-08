@@ -28,11 +28,22 @@
       <input type="text" placeholder="Enter Username" name="adminName" required>
 
       <label for="pw"></label>
-      <input type="password" placeholder="Enter Password" name="adminPassord" required>
-
-      <button type="submit" onclick="window.location.href='adminDashboard.html';">Login</button>
+      <input type="password" placeholder="Enter Password" name="adminPassword" required>
+  
+      <input type="button" onclick="check(this.form)" value="Login"/>
+      <!--<button type="submit" onclick="check(this.form)">Login</button>-->
     </form>    
 
+    <script>language="javascript"
+    function check(form){
+      if(form.adminName.value == "Admin" && form.adminPassword.value == "password"){
+        window.location.href="adminDashboard.html";
+      }else{
+        alert("The username and password you entered is incorrect")
+      }
+      return false;
+    }
+    </script>
 
   </body>
 </html>
