@@ -28,11 +28,13 @@
       <input type="text" placeholder="Enter Username" name="adminName" required>
 
       <label for="pw"></label>
-      <input type="password" placeholder="Enter Password" name="adminPassword" required>
+      <input type="password" placeholder="Enter Password" name="adminPassword" id="myInput" required>
   
       <input type="button" onclick="check(this.form)" value="Login"/>
 
-    </form>    
+      <input type="checkbox" onclick="showPassword()"/>Show Password
+
+    </form>  
 
     <script>language="javascript"
     function check(form){
@@ -42,6 +44,15 @@
         alert("The username and password you entered is incorrect")
       }
       return false;
+    }
+
+    function showPassword(){
+      var x = document.getElementById("myInput")
+      if(x.type === "password"){
+        x.type = "text";
+      }else{
+        x.type ="password";
+      }
     }
     </script>
 
