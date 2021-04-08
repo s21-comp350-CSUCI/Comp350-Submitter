@@ -1,6 +1,0 @@
-input,expected output,actual output,pass/fail
-1 2 3,6,6,Pass
-1 2 3 6,12,12,Pass
-90000 5000 4000 1000,100000,100000,Pass
-400 50 6,456,456,Pass
-1 2 3 8 -8 8 8,22,22,Pass

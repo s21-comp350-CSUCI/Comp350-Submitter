@@ -1,4 +1,0 @@
-input,expected output,actual output,pass/fail
-hello,hello,hello,Pass
-nice_to_meet_you,nice_to_meet_you,nice_to_meet_you,Pass
-pardon,pardon,pardon,Pass
